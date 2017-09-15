@@ -9,7 +9,7 @@ window.onload = function() {
   //create callbacks for all buttons in the array. Invoke immediately
   (function createCallbacks(computeArray) {
     for (var i = 0; i < computeArray.length; i++) {
-    document.getElementById(computeArray[i]).addEventListener('click', createCall, false);
+      document.getElementById(computeArray[i]).addEventListener('click', createCall, false);
     }
   }
   (computeArray));
@@ -17,7 +17,7 @@ window.onload = function() {
   function createCall(e) {
     console.log('here');
     currentStatus.push(e.srcElement.id);
-    console.log(currentStatus);
+    document.getElementById('display').innerHTML = e.srcElement.id;
   }
 
   //create callback for equals button
