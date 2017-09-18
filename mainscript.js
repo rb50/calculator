@@ -20,6 +20,15 @@ window.onload = function() {
     document.getElementById('display').innerHTML = e.srcElement.id;
   }
 
+
+  //create callback for AC button
+  document.getElementById('AC').addEventListener('click', ac, false);
+
+  function ac(e) {
+    currentStatus = [];
+    document.getElementById('display').innerHTML = '0';
+  } 
+
   //create callback for equals button
   var result;
   document.getElementById('=').addEventListener('click', equals, false);
