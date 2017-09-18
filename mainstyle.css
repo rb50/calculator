@@ -60,6 +60,7 @@ body {
   position: relative;
   top: 20px;
   z-index: 80;
+  box-shadow: inset 0px 0px 34px 1px #413f44;
 }
 
 #screen {
