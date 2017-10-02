@@ -1,22 +1,24 @@
 window.onload = function() {
 
+  "use strict";
+
   // create arrays including all buttons except special characters AC CE and =
-  var computeArrayNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '.'];
-  var computeArrayOperators = ['+', '/', '-', '*'];
+  let computeArrayNumbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '.'];
+  let computeArrayOperators = ['+', '/', '-', '*'];
 
   //set up array to hold the calculation that needs to be done
-  var currentStatus = [];
+  let currentStatus = [];
 
   //create callbacks for all buttons in the array. Invoke immediately
   (function createCallbacks(computeArrayNumbers) {
-    for (var i = 0; i < computeArrayNumbers.length; i++) {
+    for (let i = 0; i < computeArrayNumbers.length; i++) {
       document.getElementById(computeArrayNumbers[i]).addEventListener('click', createCall, false);
     }
   }
   (computeArrayNumbers));
 
   (function createCallbacks(computeArrayOperators) {
-    for (var i = 0; i < computeArrayOperators.length; i++) {
+    for (let i = 0; i < computeArrayOperators.length; i++) {
       document.getElementById(computeArrayOperators[i]).addEventListener('click', createCall, false);
     }
   }
@@ -25,14 +27,38 @@ window.onload = function() {
   //function that adds to the calculation array, and makes the button which was clicked appear on screen
   function createCall(e) {
     currentStatus.push(e.srcElement.id);
-    var source = e.srcElement.id;
-    if(source === '*') {
+    let source = e.srcElement.id;
+
+    if (isNaN(source) === false) {
+
+      console.log(numDisplay(currentStatus));
+      document.getElementById('display').innerHTML = numDisplay(currentStatus);
+    } else if(source === '*') {
       document.getElementById('display').innerHTML = "x";
     } else if(source === '/') {
       document.getElementById('display').innerHTML = String.fromCharCode(247);
     } else {
       document.getElementById('display').innerHTML = e.srcElement.id;
     }
+
+
+    function numDisplay(currentStatus) {
+      let counter = 0;
+      for(let i = currentStatus.length - 1; i >= 0; i--) {
+        if(isNaN(currentStatus[i]) === true) {
+          counter = i + 1;
+          break;
+        }
+      }
+      let result = "";
+      for(let i = counter; i < currentStatus.length; i++) {
+        result = "" + result + currentStatus[i];
+      }
+
+      return result;
+    }
+
+
   }
 
 
@@ -58,7 +84,7 @@ window.onload = function() {
 
   function equals(e) {
     function checkLast(arr) {
-      for (var i = 0; i < computeArrayOperators.length; i++) {
+      for (let i = 0; i < computeArrayOperators.length; i++) {
         if(computeArrayOperators[i] === arr[arr.length - 1]) {
           arr.pop();
           checkLast(arr);
@@ -66,12 +92,14 @@ window.onload = function() {
       }
     }
 
+
+
     //function checks for duplicate operators pressed, keeps only the last in each case
     function checkOperatorDuplicates(arr) {
-      var types = [];
-      for (var i = 0; i < arr.length; i++) {
-        var tracker = false;
-        for (var j = 0; j < computeArrayOperators.length; j++) {
+      let types = [];
+      for (let i = 0; i < arr.length; i++) {
+        let tracker = false;
+        for (let j = 0; j < computeArrayOperators.length; j++) {
           if(arr[i] === computeArrayOperators[j]){
             tracker = true;
           }
@@ -83,7 +111,7 @@ window.onload = function() {
         }
       }
 
-      for (var k = 0; k < types.length; k++) {
+      for (let k = 0; k < types.length; k++) {
         if(types[k] === 'operator') {
           if(types[k+1] === 'operator') {
             delete arr[k];
@@ -94,7 +122,7 @@ window.onload = function() {
 
     checkLast(currentStatus);
     checkOperatorDuplicates(currentStatus);
-    var sum = currentStatus.join("");
+    let sum = currentStatus.join("");
     result = (eval(sum)).toString();
     document.getElementById('display').innerHTML = result;
     currentStatus = [result];
