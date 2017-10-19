@@ -124,6 +124,9 @@ window.onload = function() {
     checkOperatorDuplicates(currentStatus);
     let sum = currentStatus.join("");
     result = (eval(sum)).toString();
+    if(result === "Infinity") {
+      result = "Error";
+    }
     document.getElementById('display').innerHTML = result;
     currentStatus = [result];
   }
