@@ -29,7 +29,7 @@ window.onload = function() {
     currentStatus.push(e.srcElement.id);
     let source = e.srcElement.id;
 
-    if (isNaN(source) === false) {
+    if (isNaN(source) === false || source === ".") {
 
       console.log(numDisplay(currentStatus));
       document.getElementById('display').innerHTML = numDisplay(currentStatus);
@@ -45,7 +45,7 @@ window.onload = function() {
     function numDisplay(currentStatus) {
       let counter = 0;
       for(let i = currentStatus.length - 1; i >= 0; i--) {
-        if(isNaN(currentStatus[i]) === true) {
+        if(isNaN(currentStatus[i]) === true && currentStatus[i] !== '.') {
           counter = i + 1;
           break;
         }
