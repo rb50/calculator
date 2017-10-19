@@ -106,6 +106,9 @@ window.onload = function() {
         }
         if (tracker === true) {
             types.push('operator');
+        }
+        else if(arr[i] === "."){
+            types.push('point');
         } else {
           types.push('number');
         }
@@ -117,8 +120,13 @@ window.onload = function() {
             delete arr[k];
           }
         }
+        if(types[k] === 'point') {
+          if(types[k+1] === 'point') {
+            delete arr[k];
       }
     }
+  }
+}
 
     checkLast(currentStatus);
     checkOperatorDuplicates(currentStatus);
